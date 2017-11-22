@@ -154,13 +154,13 @@
                             <c:if test="${dispAssignee}">
                                 <th>
                                     <i class="icon-user"></i>
-                                    <fmt:message key="label.owner"/>
+                                    <fmt:message key="label.assignee"/>
                                 </th>
                             </c:if>
                             <c:if test="${dispCreator}">
                                 <th>
                                     <i class="icon-user"></i>
-                                    <fmt:message key="mix_createdBy.jcr_createdBy"/>
+                                    <fmt:message key="label.editor"/>
                                 </th>
                             </c:if>
                             <c:if test="${dispState}">
