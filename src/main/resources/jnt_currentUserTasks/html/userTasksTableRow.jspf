@@ -71,21 +71,32 @@
                     </c:if>
                 </c:if>
                 <c:choose>
-                    <c:when test="${task.properties.state.string == 'active' and task.properties['assigneeUserKey'].string ne user.path and assignable eq 'true'}">
-                        <select name="assignToUser" class="assignToUser" id="assignToUser">
-                            <option value=""<c:if test="${task.properties['assigneeUserKey'].string eq ''}"> selected </c:if>>None</option>
-                            <c:if test="${empty task.properties['assigneeUserKey'].string}">
-                                <c:forEach var="assignableUser" items="${reviewLib:getAssignable(task)}">
-                                    <c:if test="${not empty assignableUser}">
-                                        <option value="${assignableUser.path}"<c:if test="${task.properties['assigneeUserKey'].string eq assignableUser.path}"> selected </c:if>> ${functions:fullName(assignableUser)}</option>
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                        </select>
-                        <a class="btn btn-primary btn-small" href="#" onclick="sendNewAssignee('${task.identifier}','${task.path}',this);return false;" title="Assign">
-                            <i class="icon-check icon-white"></i>
-                            <fmt:message key="label.actions.assign"/>
-                        </a>
+                    <c:when test="${((task.properties.state.string == 'active') or (task.properties.state.string == 'started') or(task.properties.state.string == 'suspended')) and task.properties['assigneeUserKey'].string ne user.path and assignable eq 'true'}">
+                        <c:choose>
+                            <c:when test="${empty task.properties['assigneeUserKey'].string}">
+                                <select name="assignToUser" class="assignToUser" id="assignToUser">
+                                    <option hidden selected><fmt:message key="label.chooseAnAssignee"/> </option>
+                                    <c:forEach var="assignableUser" items="${reviewLib:getAssignable(task)}">
+                                        <c:if test="${not empty assignableUser}">
+                                            <option value="${assignableUser.path}"<c:if test="${task.properties['assigneeUserKey'].string eq assignableUser.path}"> selected </c:if>> ${functions:fullName(assignableUser)}</option>
+                                        </c:if>
+                                    </c:forEach>
+
+                                </select>
+
+                                <a class="btn btn-primary btn-small" href="#" onclick="sendNewAssignee('${task.identifier}','${task.path}',this);return false;" title="Assign">
+                                    <i class="icon-check icon-white"></i>
+                                    <fmt:message key="label.actions.assign"/>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-danger btn-small" href="#" onclick="sendNewAssignee('${task.identifier}','${task.path}','');return false;" title="Unassign">
+                                    <i class="icon-stop icon-white"></i>
+                                    <fmt:message key="label.actions.unassign"/>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
+
                     </c:when>
                     <c:when test="${task.properties.state.string == 'active' and task.properties['assigneeUserKey'].string eq user.path}">
                         <a class="btn btn-danger btn-small" href="#" onclick="sendNewAssignee('${task.identifier}','${task.path}','');return false;" title="Unassign">
