@@ -1,0 +1,27 @@
+#CompareWindowTasks .modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#CompareWindowTasks{
+    width: 98%;
+    right: 1%;
+    top:1%;
+    left: auto;
+    height: 100%;
+}
+
+#CompareWindowTasks .box{
+    align: left ;
+    float: left;
+    width: 50%;
+}
+
+
+#CompareWindowTasks .modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+}
