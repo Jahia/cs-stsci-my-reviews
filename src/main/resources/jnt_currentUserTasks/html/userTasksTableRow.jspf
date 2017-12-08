@@ -144,9 +144,13 @@
                                 &nbsp;<fmt:message key="label.actions.completed"/>
                             </label>
                         </c:if>
-                        <jcr:node var="taskData" path="${task.path}/taskData"/>
+                        <c:url value='${url.baseUserBoardEdit}${task.path}.commentTask.do' var="urlComment"/>
                         <c:if test="${not empty taskData}">
                             <template:module path="${task.path}/taskData" view="taskData"/>
+                            <%-- Add comment--%>
+                            <template:addResources type="javascript" resources="commentWorkflow.js"/>
+                            <fmt:message  key="comment.body"/> <textarea rows="4" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
+                            <button onclick="commentWorkflow('${urlComment}','${task.identifier}',document.getElementById('${task.identifier}Comments').value)" ><fmt:message  key="add"/></button>
                         </c:if>
                     </c:when>
                     <c:when test="${task.properties.state.string == 'finished'}">
