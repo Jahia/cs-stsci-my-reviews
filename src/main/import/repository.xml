@@ -14,11 +14,11 @@
                  jcr:primaryType="jnt:folder">
                         <main jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
                      jcr:primaryType="jnt:folder">
-                            <resources jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                            <resources jcr:mixinTypes="jmix:hasExternalProviderExtension"
                              jcr:primaryType="jnt:folder">
-                                <jnt_currentUserTasks jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                                <jnt_currentUserTasks jcr:mixinTypes="jmix:hasExternalProviderExtension"
                                            jcr:primaryType="jnt:nodeTypeFolder">
-                                    <html jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                                    <html jcr:mixinTypes="jmix:hasExternalProviderExtension"
                               jcr:primaryType="jnt:templateTypeFolder"/>
                                 </jnt_currentUserTasks>
                                 <jnt_simpleWorkflow jcr:mixinTypes="jmix:hasExternalProviderExtension"
@@ -27,7 +27,7 @@
                         </main>
                     </src>
                 </sources>
-
+                
                 <portlets jcr:primaryType="jnt:portletFolder"/>
                 <files jcr:primaryType="jnt:folder"/>
                 <contents jcr:primaryType="jnt:contentFolder"/>
