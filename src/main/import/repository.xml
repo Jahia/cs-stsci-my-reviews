@@ -21,6 +21,8 @@
                                     <html jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
                               jcr:primaryType="jnt:templateTypeFolder"/>
                                 </jnt_currentUserTasks>
+                                <jnt_simpleWorkflow jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                                         jcr:primaryType="jnt:nodeTypeFolder"/>
                             </resources>
                         </main>
                     </src>
