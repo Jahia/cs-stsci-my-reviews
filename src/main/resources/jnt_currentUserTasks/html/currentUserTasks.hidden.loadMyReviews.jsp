@@ -100,7 +100,6 @@
         <c:set value="${sql} ${currentNode.properties['sortOrder'].string}" var="sql"/>
     </c:if>
 </c:if>
-<script>showDate(${sql})</script>
 
 <query:definition var="listQuery" statement="${sql}" scope="request"/>
 <c:set target="${moduleMap}" property="listQuery" value="${listQuery}" />

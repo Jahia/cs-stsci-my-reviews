@@ -19,8 +19,8 @@
                 </c:if>
                 <c:set value="${jcr:findDisplayableNodeInSite(task.properties['targetNode'].node, renderContext, task.properties['targetNode'].node.resolveSite)}" var="displayableNode"/>
                 &nbsp;-&nbsp;
-                <span>
-                    <a href="<c:url value='${baseEdit}${displayableNode.path}.html'/>" target="_blank">
+                <span class="compareTaskItem" url="<c:url value='${url.basePreview}${task.path}.compareModal.html.ajax'/>">
+                    <a  target="">
                             ${fn:escapeXml(task.properties["targetNode"].node.displayableName)}
                     </a>
                 </span>
@@ -140,7 +140,7 @@
                         <c:if test="${empty task.properties['possibleOutcomes']}">
                             <c:set var="taskId" value="${task.identifier}"/>
                             <label class="checkbox" for="btnComplete-${taskId}">
-                                <input class="checkbox completeTaskAction" taskPath="<c:url value='${url.basePreview}${currentNode.path}'/>" type="checkbox" id="btnComplete-${taskId}" onchange="sendNewStatus('${taskId}','${task.path}','finished')"/>
+                                <input class="checkbox completeTaskAction" taskPath="<c:url value='${url.basePreview}${currentNode.path}'/>" type="checkbox" id="btnComplete-${taskId}" onchange="sendNewStatus('${taskId}','${task.path}','finished');"/>
                                 &nbsp;<fmt:message key="label.actions.completed"/>
                             </label>
                         </c:if>

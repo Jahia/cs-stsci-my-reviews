@@ -30,6 +30,11 @@
 <template:addResources type="javascript" resources="ajaxreplace.js"/>
 <template:addResources type="javascript" resources="jquery.form.js"/>
 
+<template:addResources type="javascript" resources="bootstrap.js" />
+
+<template:addResources type="javascript" resources="tasks.myreviews.js"/>
+<template:addResources type="css" resources="tasks.myreviews.css"/>
+
 <template:addResources>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -44,6 +49,29 @@
         });
     </script>
 </template:addResources>
+
+<!-- Modal -->
+<div class="modal fade" style="display: none;" id="CompareWindowTasks" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Compare Window</h4>  <button class="highlightButton">HIGHLIGHT</button>
+            </div>
+
+
+
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="currentUserTasks${currentNode.identifier}">
     <c:if test="${currentResource.workspace eq 'live'}">
@@ -86,8 +114,10 @@
                         function () {
                             $('${identifierName}').load('${reloadurl}', null, function () {
                                 $("#taskdetail_" + uuid).css("display", "block");
+                                initCompareModales();
                             });
                         }, "json");
+
                 }
             }
             ;
@@ -108,8 +138,10 @@
                         function () {
                             $('${identifierName}').load('${reloadurl}', null, function () {
                                 $("#taskdetail_" + uuid).css("display", "block");
+                                initCompareModales();
                             });
                         }, "json");
+
                 }
             }
             ;
@@ -123,7 +155,7 @@
                             $("#iconTaskDisplay_" + identifier).addClass("icon-minus");
                         } else {
                             $(".iconTaskDisplay").removeClass("icon-minus");
-                            $(".iconTaskDisplay").addClass("icon-plus");
+                              $(".iconTaskDisplay").addClass("icon-plus");
                         }
                     }
                 });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content xmlns:j="http://www.jahia.org/jahia/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
     <modules jcr:primaryType="jnt:modules">
-        <cs-stsci-my-reviews j:dependencies="default tasks"
+        <cs-stsci-my-reviews j:dependencies="bootstrap3-core default tasks"
                            j:modulePriority="0"
                            j:moduleType="module"
                            j:title="My Reviews"
@@ -27,7 +27,7 @@
                         </main>
                     </src>
                 </sources>
-                
+
                 <portlets jcr:primaryType="jnt:portletFolder"/>
                 <files jcr:primaryType="jnt:folder"/>
                 <contents jcr:primaryType="jnt:contentFolder"/>
