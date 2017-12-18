@@ -5,4 +5,8 @@
     <bean class="org.jahia.modules.reviews.actions.CommentWorkflowAction">
         <property name="name" value="commentTask"/>
     </bean>
+    <bean class="org.jahia.modules.reviews.actions.CompareHighlightAction">
+        <property name="name" value="compareHighlightAction"/>
+        <property name="diff" ref="DiffHelper"/>
+    </bean>
 </beans>
