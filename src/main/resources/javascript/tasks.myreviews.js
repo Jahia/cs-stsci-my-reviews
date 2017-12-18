@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 })
 function initCompareModales() {
-    $(".compareTaskItem").find( "a" ).click(function() {
+    $(".compareTaskItem").click(function() {
         $("#CompareWindowTasks").find('.modal-body').load($(this).parent().attr("url"),function(){
             $('#CompareWindowTasks').modal({show:true});
         });
@@ -13,12 +13,10 @@ function initCompareModales() {
         var stagingFrame = $(this).closest('.modal-content').find('iframe.stagingFrame');
         var liveFrame = $(this).closest('.modal-content').find('iframe.liveFrame');
         $.post($(this).attr("actionUrl"),
-            {"stagingFrame":stagingFrame.contents().find('html').html(),
-            "liveFrame":liveFrame.contents().find('html').html()} ,
+            {"stagingFrame":stagingFrame.contents().find('html').find('body').html(),
+            "liveFrame":liveFrame.contents().find('html').find('body').html()} ,
             function (result) {
-                debugger;
-                alert(result["highlighted"]);
-                stagingFrame.contents().find("html").html(result["highlighted"]);
+                stagingFrame.contents().find("html").find('body').html(result["highlighted"]);
             },
             'json'
         );

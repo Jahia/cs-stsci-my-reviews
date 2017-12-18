@@ -19,8 +19,8 @@
                 </c:if>
                 <c:set value="${jcr:findDisplayableNodeInSite(task.properties['targetNode'].node, renderContext, task.properties['targetNode'].node.resolveSite)}" var="displayableNode"/>
                 &nbsp;-&nbsp;
-                <span class="compareTaskItem" url="<c:url value='${url.basePreview}${task.path}.compareModal.html.ajax'/>">
-                    <a  target="">
+                <span url="<c:url value='${url.basePreview}${task.path}.compareModal.html.ajax'/>">
+                    <a class="compareTaskItem" target="">
                             ${fn:escapeXml(task.properties["targetNode"].node.displayableName)}
                     </a>
                 </span>
@@ -120,11 +120,15 @@
                         <utility:setBundle basename="${task.properties['taskBundle'].string}" var="taskBundle"/>
                         <c:if test="${not empty task.properties['targetNode'].node}">
                             <c:set var="currentTaskNode" value="${jcr:findDisplayableNode(task.properties['targetNode'].node, renderContext)}"/>
-                            <a class="btn btn-small" target="_blank" href="<c:url value="${url.basePreview}${task.properties['targetNode'].node.path}.html.ajax"/>">
+                            <span  url="<c:url value="${url.basePreview}${task.path}.compareModal.html.ajax"/>">
+                            <a class="btn btn-small compareTaskItem" >
                                 <i class="icon-eye-open"></i>
                                 <fmt:message key="label.preview"/>
                             </a>
+                            </span>
                         </c:if>
+
+
                         <c:if test="${not empty task.properties['possibleOutcomes']}">
                             <c:forEach items="${task.properties['possibleOutcomes']}" var="outcome" varStatus="status">
                                 <fmt:message bundle="${taskBundle}" var="outcomeLabel" key="${fn:replace(task.properties['taskName'].string,' ','.')}.${fn:replace(outcome.string,' ','.')}"/>
@@ -147,7 +151,7 @@
                         <c:url value='${url.baseUserBoardEdit}${task.path}.commentTask.do' var="urlComment"/>
                       	<%-- Add comment--%>
                         <template:addResources type="javascript" resources="commentWorkflow.js"/>
-                        <fmt:message  key="comment.body"/> <textarea rows="4" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
+                        <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
                         <button onclick="commentWorkflow('${urlComment}','${task.identifier}',document.getElementById('${task.identifier}Comments').value)" ><fmt:message  key="add"/></button>
                         
                       <c:if test="${not empty taskData}">
@@ -157,7 +161,7 @@
                     </c:when>
                     <c:when test="${task.properties.state.string == 'finished'}">
                         <i class="icon-ok"></i>
-                        &nbsp;<fmt:message key="label.actions.completed"/>
+                        &nbsp;<fmt:message key="label.actions.completed"/> &nbsp; <b>${task.properties.finalOutcome}</b>
                     </c:when>
                     <c:when test="${task.properties.state.string == 'suspended' and task.properties['assigneeUserKey'].string eq user.path}">
                         <a class="btn btn-danger btn-small" href="#" onclick="sendNewAssignee('${task.identifier}','${task.path}','');return false;" title="Unassign">

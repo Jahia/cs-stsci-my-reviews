@@ -58,7 +58,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Compare Window</h4>
-                <button class="highlightButton" actionUrl="<c:url value='${url.base}${functions:escapePath(currentNode.path)}.compareHighlightAction.do'/>">
+                <button class="highlightButton"
+                        highlight="false"
+                        actionUrl="<c:url value='${url.base}${functions:escapePath(currentNode.path)}.compareHighlightAction.do'/>">
                     HIGHLIGHT
                 </button>
             </div>
@@ -178,7 +180,7 @@
 
         </script>
 
-        <template:include view="hidden.header"/>
+        <template:include view="hidden.header.myreviews"/>
 
         <div id="tasklist">
             <div id="${user.UUID}">
