@@ -57,7 +57,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Compare Window</h4>  <button class="highlightButton">HIGHLIGHT</button>
+                <h4 class="modal-title">Compare Window</h4>
+                <button class="highlightButton" actionUrl="<c:url value='${url.base}${functions:escapePath(currentNode.path)}.compareHighlightAction.do'/>">
+                    HIGHLIGHT
+                </button>
             </div>
 
 
@@ -102,6 +105,15 @@
             </c:forEach>
             </c:url>
             <c:set var="identifierName" value="#currentUserTasks${currentNode.identifier}"/>
+
+            function startWorkflow(process) {
+                $.post("<c:url value='${url.base}${functions:escapePath(currentNode.path)}.compareHighlightAction.do'/>", {"process":process},
+                    function (result) {
+                        location.reload();
+                    },
+                    'json'
+                );
+            }
 
             function sendNewStatus(uuid, task, state, finalOutcome) {
                 if (ready) {

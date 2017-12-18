@@ -25,6 +25,6 @@
 
 
 
-<div class="box"><iframe src="<c:url value='${url.basePreview}${displayableNode.path}.html'/>" frameborder="0" scrolling="no" width="100%" height="512" align="left"> </iframe> </div>
+<div class="box"><iframe class="liveFrame"  src="<c:url value='${url.basePreview}${displayableNode.path}.html'/>" frameborder="0" scrolling="no" width="100%" height="512" align="left"> </iframe> </div>
 
 <div class="box"><iframe class="stagingFrame" src="<c:url value='${url.baseLive}${displayableNode.path}.html'/>" frameborder="0" scrolling="no" width="100%" height="512" align="right"></iframe></div>
