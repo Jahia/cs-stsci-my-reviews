@@ -12,14 +12,21 @@ function initCompareModales() {
     $(".highlightButton").click(function() {
         var stagingFrame = $(this).closest('.modal-content').find('iframe.stagingFrame');
         var liveFrame = $(this).closest('.modal-content').find('iframe.liveFrame');
-        $.post($(this).attr("actionUrl"),
-            {"stagingFrame":stagingFrame.contents().find('html').find('body').html(),
-            "liveFrame":liveFrame.contents().find('html').find('body').html()} ,
-            function (result) {
-                stagingFrame.contents().find("html").find('body').html(result["highlighted"]);
-            },
-            'json'
-        );
+
+        if ($(this).attr("highlight")== "false"){
+            $.post($(this).attr("actionUrl"),
+                {"stagingFrame":stagingFrame.contents().find('html').find('body').html(),
+                "liveFrame":liveFrame.contents().find('html').find('body').html()} ,
+                function (result) {
+                    stagingFrame.contents().find("html").find('body').html(result["highlighted"]);
+                },
+                'json'
+            );
+            $(this).attr("highlight","true");
+        }else{
+            $('.stagingFrame').attr('src', $('.stagingFrame').attr('src'));
+            $(this).attr("highlight","false");
+        }
     });
 
 }

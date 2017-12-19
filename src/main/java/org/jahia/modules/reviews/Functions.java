@@ -7,6 +7,7 @@ import org.jahia.registries.ServicesRegistry;
 import org.jahia.services.content.JCRNodeWrapper;
 import org.jahia.services.content.JCRSessionFactory;
 import org.jahia.services.content.JCRSessionWrapper;
+import org.jahia.services.content.JCRValueWrapper;
 import org.jahia.services.content.decorator.JCRGroupNode;
 import org.jahia.services.content.decorator.JCRUserNode;
 import org.jahia.services.preferences.user.UserPreferencesHelper;
@@ -24,7 +25,9 @@ import org.jahia.services.workflow.jbpm.JBPMTaskIdentityService;
 
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class Functions {
@@ -36,28 +39,24 @@ public class Functions {
         JCRSessionWrapper session = JCRSessionFactory.getInstance().getCurrentUserSession();
         JBPM6WorkflowProvider workflowProvider = JBPM6WorkflowProvider.getInstance();
         WorkflowTask task = workflowProvider.getWorkflowTask(taskNode.getPropertyAsString("taskId"),session.getLocale());
-        List<JCRNodeWrapper> users = new ArrayList<JCRNodeWrapper>();
-        WorkflowDefinition definition = task.getWorkflowDefinition();
-        List <JahiaPrincipal> principals = new ArrayList<JahiaPrincipal>();
+        Set<JCRNodeWrapper> users = new HashSet<>();
 
-        try{
-            principals = WorkflowService.getInstance().getAssignedRole(definition, "review", task.getProcessId(),session);
-        }catch (RepositoryException e) {
-            logger.error("Couldn't workflow for node "+task.getName(),e);
-        }
-        for (JahiaPrincipal principal : principals) {
-            if (principal instanceof JahiaUser) {
-                    users.add(((JCRNodeWrapper)ServicesRegistry.getInstance().getJahiaUserManagerService().lookupUser(((JahiaUser) principal).getUsername(), ((JahiaUser) principal).getRealm(), true)));
-            } else if (principal instanceof JahiaGroup) {
-                JCRGroupNode groupNode = groupManagerService.lookupGroupByPath(principal.getLocalPath());
+        JCRValueWrapper[] candidates = taskNode.getProperty("candidates").getValues();
+        for (JCRValueWrapper candidate : candidates) {
+            if(candidate.getString().contains("/groups/")){
+                JCRGroupNode groupNode = groupManagerService.lookupGroupByPath(candidate.getString());
                 if (groupNode != null) {
                     for (JCRUserNode user : groupNode.getRecursiveUserMembers()) {
-                            users.add((JCRNodeWrapper)user);
+                        users.add((JCRNodeWrapper)user);
                     }
                 }
+            }else{
+                users.add((JCRNodeWrapper)ServicesRegistry.getInstance().getJahiaUserManagerService().lookupUserByPath(candidate.getString()));
             }
         }
-        return users;
+
+
+        return new ArrayList(users);
     }
 
 }
