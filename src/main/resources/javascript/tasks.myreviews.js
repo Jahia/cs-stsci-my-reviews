@@ -35,6 +35,7 @@ function initCompareModales() {
             );
             $(this).attr("highlight","true");
         }else{
+            // TODO: The is where we reload the iframe without the highlighting
             $('.stagingFrame').attr('src', $('.stagingFrame').attr('src'));
             $(this).attr("highlight","false");
         }
@@ -72,6 +73,7 @@ function displayComments(url,node) {
             node: node,
         },
         success: function (comments) {
+            // TODO: This where we need to build the HTML that diplays the comments
             $(".displayComments"+node).html(JSON.stringify(comments));
         },
         error: function (request, status, error) {

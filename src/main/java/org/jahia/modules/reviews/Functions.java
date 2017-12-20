@@ -36,9 +36,6 @@ public class Functions {
 
     public static List<JCRNodeWrapper> getAssignableUsers(JCRNodeWrapper taskNode) throws RepositoryException {
         JahiaGroupManagerService groupManagerService = JahiaGroupManagerService.getInstance();
-        JCRSessionWrapper session = JCRSessionFactory.getInstance().getCurrentUserSession();
-        JBPM6WorkflowProvider workflowProvider = JBPM6WorkflowProvider.getInstance();
-        WorkflowTask task = workflowProvider.getWorkflowTask(taskNode.getPropertyAsString("taskId"),session.getLocale());
         Set<JCRNodeWrapper> users = new HashSet<>();
 
         JCRValueWrapper[] candidates = taskNode.getProperty("candidates").getValues();

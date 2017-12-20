@@ -32,7 +32,6 @@ public class GetWorkflowCommentsAction extends Action {
         JSONArray jsonObject = new JSONArray();
         List<WorkflowComment> wfcomments = null;
         String nodeId = getParameter(parameters, "node");            // NodeId of the workflow
-        String comment = getParameter(parameters, "comment");          // Comment of the workflow
         JCRNodeWrapper task = session.getNodeByIdentifier(nodeId);                    // WorkflowTask to get the process ID, which is the processID
         if (task.getPrimaryNodeTypeName().equals("jnt:workflowTask")) {
             String provider = task.getPropertyAsString("provider");                                             //Provider, need to add a comment
