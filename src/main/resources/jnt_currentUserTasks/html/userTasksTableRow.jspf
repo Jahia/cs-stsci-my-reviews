@@ -158,7 +158,7 @@
                             <div class="displayComments${task.identifier}"></div>
                             <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
                             <button class="commentTaskButton"   ><fmt:message  key="add"/></button>
-                            <button onclick="displayComments('${urlShowComment}','${task.identifier}')" ><fmt:message  key="Show"/></button>
+                            <button class="displayCommentButton" ><fmt:message  key="show.comments"/></button>
                             <c:if test="${not empty taskData}">
                                 <template:module path="${task.path}/taskData" view="taskData"/>
                             </c:if>

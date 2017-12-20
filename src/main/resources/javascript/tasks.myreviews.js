@@ -7,11 +7,16 @@ $(document).ready(function() {
         var urlShow = $(this).parent().attr("urlShowComment");
         var taskID = $(this).parent().attr("taskId");
         var comment = $(this).parent().find('textarea').val();
-        commentWorkflow(url,taskID,comment);
-        displayComments(urlShow,taskID);
+        commentWorkflow(url,urlShow,taskID,comment);
+
         }
     )
 
+    $(".displayCommentButton").click(function () {
+        var urlShow = $(this).parent().attr("urlShowComment");
+        var taskID = $(this).parent().attr("taskId");
+        displayComments(urlShow,taskID);
+    })
 
 })
 function initCompareModales() {
@@ -43,7 +48,7 @@ function initCompareModales() {
 
 }
 
-function commentWorkflow(url,node,comment) {
+function commentWorkflow(url,urlShow,node,comment) {
     $.ajax({
         url: url,
         context: document.body,
@@ -54,7 +59,8 @@ function commentWorkflow(url,node,comment) {
         },
         success: function () {
             $("#"+node+"Comments").empty()
-            alert("Your comment has been add");
+            displayComments(urlShow,node);
+
         },
         error: function (request, status, error) {
             $("#"+node+"Comments").empty()
@@ -74,7 +80,15 @@ function displayComments(url,node) {
         },
         success: function (comments) {
             // TODO: This where we need to build the HTML that diplays the comments
-            $(".displayComments"+node).html(JSON.stringify(comments));
+            var response = comments['wfcomments'];
+            var HTMLreponse = "<table border='1'>";
+
+            for (var j = 0; j < response.length; j++){
+                HTMLreponse+="<tr><td>" + response[j].comment+"</td><td>"+ response[j].user+"</td><td>"+ response[j].time+"</td></tr>";
+            }
+
+            HTMLreponse+="</table>";
+            $(".displayComments"+node).html(HTMLreponse);
         },
         error: function (request, status, error) {
             alert("An error occured when retrieving comments");
