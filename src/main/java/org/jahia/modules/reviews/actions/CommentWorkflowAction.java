@@ -8,6 +8,7 @@ import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.URLResolver;
 import org.jahia.services.workflow.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,8 @@ public class CommentWorkflowAction extends Action {
             String          provider        =       "jBPM";                                             //Provider, need to add a comment
             String          taskId          =       task.getPropertyAsString("taskId");           //ProcessId, need to add a comment
             String          processID       =       null;
-            List<WorkflowTask> tasks        =       WorkflowService.getInstance().getTasksForUser(session.getUser(),session.getLocale());
-
-            processID = getProcessId(tasks,taskId);
+            WorkflowTask    taskWk          =       WorkflowService.getInstance().getWorkflowTask(taskId,provider,session.getLocale());
+            processID = taskWk.getProcessId();
 
             if (null != comment && !comment.isEmpty() && processID!= null) {
                 WorkflowService.getInstance().addComment(processID,provider,comment,userName);
@@ -40,14 +40,5 @@ public class CommentWorkflowAction extends Action {
             return ActionResult.INTERNAL_ERROR_JSON;
         }
 
-    }
-
-    private String getProcessId(List<WorkflowTask> tasks, String taskId){
-        for (WorkflowTask taskWorkflow : tasks){
-            if(taskWorkflow.getId().equals(taskId)){
-               return taskWorkflow.getProcessId();
-            }
-        }
-        return null;
     }
 }

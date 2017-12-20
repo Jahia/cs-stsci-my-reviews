@@ -148,12 +148,18 @@
                                 &nbsp;<fmt:message key="label.actions.completed"/>
                             </label>
                         </c:if>
-                        <c:url value='${url.baseUserBoardEdit}${task.path}.commentTask.do' var="urlComment"/>
+                        <c:url value='${url.baseUserBoardEdit}${currentResource.node.path}.commentTask.do' var="urlComment"/>
+
+
                       	<%-- Add comment--%>
                         <template:addResources type="javascript" resources="commentWorkflow.js"/>
-                        <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
-                        <button onclick="commentWorkflow('${urlComment}','${task.identifier}',document.getElementById('${task.identifier}Comments').value)" ><fmt:message  key="add"/></button>
-                        
+
+
+                                <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" name="comment" value=""></textarea>
+
+                                <button onclick="commentWorkflow('${urlComment}','${task.identifier}',document.getElementById('${task.identifier}Comments').value)" ><fmt:message  key="add"/></button>
+
+
                       <c:if test="${not empty taskData}">
                             <template:module path="${task.path}/taskData" view="taskData"/>
                             
