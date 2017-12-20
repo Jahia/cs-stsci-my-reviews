@@ -2,8 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
     <bean class="org.jahia.modules.reviews.actions.CommentWorkflowAction">
         <property name="name" value="commentTask"/>
+        <property name="workflowService" ref="workflowService"/>
+    </bean>
+    <bean class="org.jahia.modules.reviews.actions.GetWorkflowCommentsAction">
+        <property name="name" value="getwfcomments"/>
+        <property name="workflowService" ref="workflowService"/>
     </bean>
     <bean class="org.jahia.modules.reviews.actions.CompareHighlightAction">
         <property name="name" value="compareHighlightAction"/>

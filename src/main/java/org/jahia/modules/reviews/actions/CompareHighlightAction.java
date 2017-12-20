@@ -21,7 +21,7 @@ public class CompareHighlightAction extends Action {
     @Override
     public ActionResult doExecute(HttpServletRequest req, RenderContext renderContext, Resource resource, JCRSessionWrapper jcrSessionWrapper, Map<String, List<String>> map, URLResolver urlResolver) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        String highlighted= diff.getHighlighted(req.getParameter("liveFrame"),req.getParameter("stagingFrame"));
+        String highlighted= diff.getHighlighted(req.getParameter("stagingFrame"),req.getParameter("liveFrame"));
         jsonObject.put("highlighted", highlighted);
         return new ActionResult(HttpServletResponse.SC_OK, null, jsonObject);
     }

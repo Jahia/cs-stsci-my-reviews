@@ -19,9 +19,9 @@
                 </c:if>
                 <c:set value="${jcr:findDisplayableNodeInSite(task.properties['targetNode'].node, renderContext, task.properties['targetNode'].node.resolveSite)}" var="displayableNode"/>
                 &nbsp;-&nbsp;
-                <span url="<c:url value='${url.basePreview}${task.path}.compareModal.html.ajax'/>">
+                <span url="<c:url value='${url.basePreview}${functions:escapePath(task.path)}.compareModal.html.ajax'/>">
                     <a class="compareTaskItem" target="">
-                            ${fn:escapeXml(task.properties["targetNode"].node.displayableName)}
+                          ${fn:escapeXml(fn:substring(task.properties["targetNode"].node.displayableName,0,200))}
                     </a>
                 </span>
             </c:if>
@@ -120,7 +120,8 @@
                         <utility:setBundle basename="${task.properties['taskBundle'].string}" var="taskBundle"/>
                         <c:if test="${not empty task.properties['targetNode'].node}">
                             <c:set var="currentTaskNode" value="${jcr:findDisplayableNode(task.properties['targetNode'].node, renderContext)}"/>
-                            <span  url="<c:url value="${url.basePreview}${task.path}.compareModal.html.ajax"/>">
+
+                            <span  url="<c:url value="${url.basePreview}${functions:escapePath(task.path)}.compareModal.html.ajax"/>">
                             <a class="btn btn-small compareTaskItem" >
                                 <i class="icon-eye-open"></i>
                                 <fmt:message key="label.preview"/>
@@ -149,21 +150,19 @@
                             </label>
                         </c:if>
                         <c:url value='${url.baseUserBoardEdit}${currentResource.node.path}.commentTask.do' var="urlComment"/>
+                        <c:url value='${url.baseUserBoardEdit}${currentResource.node.path}.getwfcomments.do' var="urlShowComment"/>
 
 
                       	<%-- Add comment--%>
-                        <template:addResources type="javascript" resources="commentWorkflow.js"/>
-
-
-                                <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" name="comment" value=""></textarea>
-
-                                <button onclick="commentWorkflow('${urlComment}','${task.identifier}',document.getElementById('${task.identifier}Comments').value)" ><fmt:message  key="add"/></button>
-
-
-                      <c:if test="${not empty taskData}">
-                            <template:module path="${task.path}/taskData" view="taskData"/>
-                            
-                        </c:if>
+                        <div urlComment="${urlComment}" urlShowComment="${urlShowComment}" taskId="${task.identifier}">
+                            <div class="displayComments${task.identifier}"></div>
+                            <fmt:message  key="comment.body"/> <textarea rows="" cols="50"  type="text" id="${task.identifier}Comments" value=""></textarea>
+                            <button class="commentTaskButton"   ><fmt:message  key="add"/></button>
+                            <button onclick="displayComments('${urlShowComment}','${task.identifier}')" ><fmt:message  key="Show"/></button>
+                            <c:if test="${not empty taskData}">
+                                <template:module path="${task.path}/taskData" view="taskData"/>
+                            </c:if>
+                        </div>
                     </c:when>
                     <c:when test="${task.properties.state.string == 'finished'}">
                         <i class="icon-ok"></i>

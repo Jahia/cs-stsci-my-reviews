@@ -2,6 +2,17 @@ $(document).ready(function() {
 
     initCompareModales();
 
+    $(".commentTaskButton").click(function () {
+        var url = $(this).parent().attr("urlComment");
+        var urlShow = $(this).parent().attr("urlShowComment");
+        var taskID = $(this).parent().attr("taskId");
+        var comment = $(this).parent().find('textarea').val();
+        commentWorkflow(url,taskID,comment);
+        displayComments(urlShow,taskID);
+        }
+    )
+
+
 })
 function initCompareModales() {
     $(".compareTaskItem").click(function() {
@@ -30,3 +41,42 @@ function initCompareModales() {
     });
 
 }
+
+function commentWorkflow(url,node,comment) {
+    $.ajax({
+        url: url,
+        context: document.body,
+        dataType: "json",
+        data: {
+            node: node,
+            comment: comment
+        },
+        success: function () {
+            $("#"+node+"Comments").empty()
+            alert("Your comment has been add");
+        },
+        error: function (request, status, error) {
+            $("#"+node+"Comments").empty()
+            alert("An error occured, comment has not been add");
+        }
+    })
+
+};
+
+function displayComments(url,node) {
+    $.ajax({
+        url: url,
+        context: document.body,
+        dataType: "json",
+        data: {
+            node: node,
+        },
+        success: function (comments) {
+            $(".displayComments"+node).html(JSON.stringify(comments));
+        },
+        error: function (request, status, error) {
+            alert("An error occured when retrieving comments");
+        }
+    })
+
+};

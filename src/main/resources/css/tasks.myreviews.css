@@ -25,3 +25,8 @@
     min-height: 100%;
     border-radius: 0;
 }
+
+div.modal-body-compare{
+    max-height: none;
+    height: 100%;
+}

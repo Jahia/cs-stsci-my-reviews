@@ -67,7 +67,7 @@
 
 
 
-            <div class="modal-body">
+            <div class="modal-body modal-body-compare">
 
             </div>
             <div class="modal-footer">
