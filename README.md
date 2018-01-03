@@ -2,11 +2,11 @@
 
  This is a custom integration for STSCI
 
-This objective is to provide reviewers with a more intuitive mechanism for processing workflow.  This will be accomplished by creating a new My Reviews application that resides in the user’s dashboard based on the existing My Tasks module (https://github.com/Jahia/tasks).
+The objective is to provide reviewers with a more intuitive mechanism for processing workflow.  This will be accomplished by creating a new 'My Reviews' application that resides in the user’s dashboard based on the existing My Tasks module (https://github.com/Jahia/tasks).
 
 Changes to existing My Tasks functionality:
  
- - The Assign to Me button changes to a drop-down list of reviewers able to review the item.  Any reviewer may assign a task to him/herself or another reviewer with permissions to review the item.
+ - The 'Assign to Me' button changes to a drop-down list of reviewers able to review the item.  Any reviewer may assign a task to him/herself or another reviewer with permissions to review the item.
  
  - Any reviewer with permissions to review a task can un-assign that task and assign it to another reviewer.
 
