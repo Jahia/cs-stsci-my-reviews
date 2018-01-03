@@ -19,4 +19,4 @@ Changes to existing My Tasks functionality:
  - The columns in the table of tasks, Owner will be relabelled Assignee and Creator will be relabelled Editor
 
 
-Please not that in order to be able to reassign tasks without running into JBPM error, we have to fork the My Tasks module in order to fix a Drools rule (https://github.com/faissah/tasks)
+Please note that in order to be able to reassign tasks without running into JBPM error, we have to fork the My Tasks module in order to fix a Drools rule (https://github.com/faissah/tasks)
